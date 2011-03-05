@@ -70,7 +70,7 @@ void process_command_line ( int argc, char **argv, dipsfa_state * t )
                 exit ( EXIT_SUCCESS );
 
             default:
-                try_msg ( );
+                try_msg ( ); /*FIX not working...*/
                 exit ( EXIT_FAILURE );
         }
     }
