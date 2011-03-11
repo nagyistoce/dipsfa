@@ -51,19 +51,19 @@ void process_command_line ( int argc, char **argv, dipsfa_state * s )
             case 'i':
                 printf ( "Test i\n" );
                 set_input_file ( s, optarg );
-                free(s->input_file);
+                free ( s->input_file );
                 break;
 
             case 't':
                 printf ( "Test t\n" );
                 set_processing_tool ( s, optarg );
-                free(s->ptool);
+                free ( s->ptool );
                 break;
 
             case 'a':
                 /*printf ( "Test a\n" );*/
                 set_tool_arguments ( s, optarg );
-                free(s->tool_arguments);
+                free ( s->tool_arguments );
                 break;
 
             case 'h':
