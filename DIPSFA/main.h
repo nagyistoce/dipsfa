@@ -18,7 +18,7 @@
 
     You should have received a copy of the GNU General Public License
     along with DIPSFA.  If not, see http://www.gnu.org/licenses/.
-*/
+ */
 
 #ifndef __DIPSFA_H
 #define __DIPSFA_H
@@ -84,41 +84,46 @@ extern "C" {
     /* -----------------------------------------------------------------
         State and Global Variables
     ----------------------------------------------------------------- */
+    
     typedef struct p_tool {
-        uint8_t * directory; /*Tool directory*/
-        uint8_t * name; /*Tool name*/
-        uint8_t * input_file; /*Input file for processing*/
-        uint8_t * output_directory; /*Tool output directory*/
-        uint8_t * audit_file_name; /*Audit file name*/
-        uint8_t * arguments; /*Arguments to run tool*/
+        char * directory; /*Tool directory*/
+        char * name; /*Tool name*/
+        char * input_file; /*Input file for processing*/
+        char * output_directory; /*Tool output directory*/
+        char * audit_file_name; /*Audit file name*/
+        char * arguments; /*Arguments to run tool*/
         FILE * audit_file; /*FIle pointer to audit file*/
     } p_tool;
 
     typedef struct dipsfa_state {
-        uint8_t * input_file;
+        char * input_file;
+        char * ptool;
+        char * tool_arguments;
     } dipsfa_state;
+
     /* -----------------------------------------------------------------
         Function definitions
-    ----------------------------------------------------------------- */
+     * ----------------------------------------------------------------- */
 
     /* ToolKit functions */
-    int initialize_state ( p_tool * t, int argc, char **argv );
+    void initialize_tool ( p_tool * t );
     void start_tool ( p_tool * t );
     void free_tool ( p_tool * t );
     void set_tool_input_file ( p_tool * t );
     void set_tool_name ( p_tool * t );
     void set_tool_directory ( p_tool * t );
-    void set_tool_arguments ( dipsfa_state * s, char * filename );
-    void set_processing_tool ( dipsfa_state * s, char * filename );
     FILE * get_tool_audit_file ( p_tool * t );
     void query_back_results ( p_tool * t );
-    /*void fetch_results ( p_tool * t );*/
+    void fetch_results ( p_tool * t );
 
     /* Client functions */
 
     /* Server functions */
-    void set_input_file ( dipsfa_state *s, char* filename );
-    void get_input_file ( dipsfa_state *s );
+    void initialize_dipsfa ( dipsfa_state * s );
+    void free_dipsfa( dipsfa_state * s );
+    void set_input_file ( dipsfa_state * s, char * filename );
+    void set_processing_tool ( dipsfa_state * s, char * toolname );
+    void set_tool_arguments ( dipsfa_state * s, char * arguments );
 
     /* Database functions */
 
@@ -129,9 +134,11 @@ extern "C" {
     /* Extra functions */
 #ifdef __WIN32
     int getopt ( int argc, char *const argv[], const char *optstring );
-#endif
-    void process_command_line ( int argc, char **argv, dipsfa_state *s );
-
+#endif    
+    void process_command_line ( int argc, char **argv, dipsfa_state * s );
+    void try_msg ( void );
+    void dipsfa_help ( void );
+    
 #ifdef	__cplusplus
 }
 #endif
