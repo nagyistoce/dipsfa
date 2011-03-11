@@ -44,11 +44,9 @@ void free_tool ( p_tool * t )
     free ( t->audit_file_name );
 }
 
-void start_tool ( p_tool * t )
-{
+void start_tool ( p_tool * t ) {
     /*strcat ./name arguments */
-    /*popen command...*/
-}
+    /*popen command...*/ }
 
 /*
 void start_tool ( p_tool * t )

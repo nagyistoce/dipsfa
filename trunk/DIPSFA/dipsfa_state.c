@@ -40,14 +40,14 @@ void set_input_file ( dipsfa_state * s, char * filename )
 {
     s->input_file = malloc ( ( strlen ( filename ) + 1 ) * sizeof (char) );
     strncpy ( s->input_file, filename, strlen ( filename ) + 1 );
-    printf("File: %s \n", s->ptool);
+    printf ( "File: %s \n", s->input_file );
 }
 
 void set_processing_tool ( dipsfa_state * s, char * toolname )
 {
     s->ptool = malloc ( ( strlen ( toolname ) + 1 ) * sizeof (char) );
     strncpy ( s->ptool, toolname, strlen ( toolname ) + 1 );
-    printf("Tool: %s \n", s->ptool);
+    printf ( "Tool: %s \n", s->ptool );
 }
 
 void set_tool_arguments ( dipsfa_state * s, char * arguments )

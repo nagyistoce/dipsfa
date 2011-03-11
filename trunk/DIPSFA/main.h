@@ -84,7 +84,7 @@ extern "C" {
     /* -----------------------------------------------------------------
         State and Global Variables
     ----------------------------------------------------------------- */
-    
+
     typedef struct p_tool {
         char * directory; /*Tool directory*/
         char * name; /*Tool name*/
@@ -120,7 +120,7 @@ extern "C" {
 
     /* Server functions */
     void initialize_dipsfa ( dipsfa_state * s );
-    void free_dipsfa( dipsfa_state * s );
+    void free_dipsfa ( dipsfa_state * s );
     void set_input_file ( dipsfa_state * s, char * filename );
     void set_processing_tool ( dipsfa_state * s, char * toolname );
     void set_tool_arguments ( dipsfa_state * s, char * arguments );
@@ -138,7 +138,7 @@ extern "C" {
     void process_command_line ( int argc, char **argv, dipsfa_state * s );
     void try_msg ( void );
     void dipsfa_help ( void );
-    
+
 #ifdef	__cplusplus
 }
 #endif
