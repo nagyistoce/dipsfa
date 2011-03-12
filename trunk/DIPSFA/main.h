@@ -20,8 +20,8 @@
     along with DIPSFA.  If not, see http://www.gnu.org/licenses/.
  */
 
-#ifndef __DIPSFA_H
-#define __DIPSFA_H
+#ifndef __MAIN_H
+#define __MAIN_H
 
 #ifdef	__cplusplus
 extern "C" {
@@ -60,11 +60,10 @@ extern "C" {
 #include <sys/types.h>
 #include <signal.h>
 #include <stdarg.h>
+#include "c_security.h"  /*Basic Security Library for DIPSFA*/
 
 #define TRUE   1
 #define FALSE  0
-#define eq ==
-#define ne !=
 #define PROGRAM_NAME             "DIPSFA"
 #define VERSION                  "0.1-alpha"
 #define UPDATE                   "March 4, 2011"
@@ -143,4 +142,4 @@ extern "C" {
 }
 #endif
 
-#endif	/* __DIPSFA_H */
+#endif	/* __MAIN_H */

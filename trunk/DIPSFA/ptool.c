@@ -51,7 +51,6 @@ void start_tool ( p_tool * t )
 }
 
 /*
-void start_tool ( p_tool * t )
 void set_tool_input_file ( p_tool * t );
 void set_tool_name ( p_tool * t );
 void set_tool_directory ( p_tool * t );
