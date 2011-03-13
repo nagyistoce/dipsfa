@@ -25,15 +25,28 @@
 void initialize_dipsfa ( dipsfa_state * s )
 {
     s->input_file = NULL;
-    s->ptool = NULL;
     s->tool_arguments = NULL;
+    s->mode = NONE_MODE;
+    s->ptool = NONE;
 }
 
 void free_dipsfa ( dipsfa_state * s )
 {
     free_s ( s->input_file );
-    free_s ( s->ptool );
     free_s ( s->tool_arguments );
+}
+
+void set_operation_mode ( dipsfa_state * s, char * mode )
+{
+    if ( strcmp ( "server", mode ) == 0 )
+    {
+        s->mode = SERVER_MODE;
+    }
+    else
+        if ( strcmp ( "client", mode ) == 0 )
+        {
+            s->mode = CLIENT_MODE;
+        }
 }
 
 void set_input_file ( dipsfa_state * s, char * filename )
@@ -44,8 +57,20 @@ void set_input_file ( dipsfa_state * s, char * filename )
 
 void set_processing_tool ( dipsfa_state * s, char * toolname )
 {
-    s->ptool = malloc_s ( ( strlen ( toolname ) + 1 ) * sizeof (char) );
-    strncpy ( s->ptool, toolname, strlen ( toolname ) + 1 );
+    if ( strcmp ( "foremost", toolname ) == 0 )
+    {
+        s->ptool = FOREMOST;
+    }
+    else
+        if ( strcmp ( "scalpel", toolname ) == 0 )
+        {
+            s->ptool = SCALPEL;
+        }
+        else
+            if ( strcmp ( "ent", toolname ) == 0 )
+            {
+                s->ptool = ENT;
+            }
 }
 
 void set_tool_arguments ( dipsfa_state * s, char * arguments )
@@ -70,4 +95,25 @@ void set_tool_arguments ( dipsfa_state * s, char * arguments )
             s->tool_arguments[( 3 * i ) + 2] = ' ';
         }
     }
+}
+
+char * get_ptool ( dipsfa_state * s )
+{
+    char * toolname = malloc_s ( 12 * sizeof (char) );
+
+    if ( s->ptool == FOREMOST )
+    {
+        strncpy ( toolname, "foremost", 8 );
+    }
+    else
+        if ( s->ptool == SCALPEL )
+        {
+            strncpy ( toolname, "scalpel", 7 );
+        }
+        else
+            if ( s->ptool == ENT )
+            {
+                strncpy ( toolname, "ent", 3 );
+            }
+    return toolname;
 }

@@ -29,55 +29,53 @@ void try_msg ( void )
 
 void dipsfa_help ( void )
 {
-    printf ( "\nDIPSFA - Distributed Image Processing Server for Forensics Analysis\n\n" );
-    printf ( "$ %s [-V|-h [-i <file] [-t <tool_name] [-a tool_args]\n\n", PROGRAM_NAME );
-    printf ( "\t -V  display copyright information and exit\n" );
-    printf ( "\t -i  specify input file (default is stdin)\n" );
-    printf ( "\t -t  specify the processing tool.\n" );
-    printf ( "\t -a  specify tool arguments(ej. vCih).\n\n" );
-    printf ( "%s version %s by %s.\n", PROGRAM_NAME, VERSION, AUTHOR );
-    printf ( "http://code.google.com/p/dipsfa/ \n" );
-    printf ( "%s\n\n", UPDATE );
+    fprintf ( stderr, "\nDIPSFA - Distributed Image Processing Server for Forensics Analysis\n\n" );
+    fprintf ( stderr, "$ %s [-V|-h [-i <file] [-m <mode] [-t <tool_name] [-a tool_args]\n\n", PROGRAM_NAME );
+    fprintf ( stderr, "\t -V  display copyright information and exit.\n" );
+    fprintf ( stderr, "\t -i  specify input file.\n" );
+    fprintf ( stderr, "\t -m  specify the operating mode (ej. SERVER or CLIENT).\n" );
+    fprintf ( stderr, "\t -t  specify the processing tool.\n" );
+    fprintf ( stderr, "\t -a  specify tool arguments(ej. vCih).\n\n" );
+    fprintf ( stderr, "%s version %s by %s.\n", PROGRAM_NAME, VERSION, AUTHOR );
+    fprintf ( stderr, "http://code.google.com/p/dipsfa/ \n" );
+    fprintf ( stderr, "%s\n\n", UPDATE );
 }
 
 void process_command_line ( int argc, char **argv, dipsfa_state * s )
 {
     int32_t i;
 
-    while ( ( i = getopt ( argc, argv, "t:i:a:hvV" ) ) != -1 )
+    while ( ( i = getopt ( argc, argv, "m:t:i:a:hvV" ) ) != -1 )
     {
         switch ( i )
         {
             case 'i':
-                printf ( "Test i\n" );
                 set_input_file ( s, optarg );
-                free ( s->input_file );
+                free_s ( s->input_file );
+                break;
+
+            case 'm':
+                set_operation_mode ( s, optarg );
                 break;
 
             case 't':
-                printf ( "Test t\n" );
                 set_processing_tool ( s, optarg );
-                free ( s->ptool );
                 break;
 
             case 'a':
-                /*printf ( "Test a\n" );*/
                 set_tool_arguments ( s, optarg );
-                free ( s->tool_arguments );
+                free_s ( s->tool_arguments );
                 break;
 
             case 'h':
-                printf ( "Test h\n" );
                 dipsfa_help ( );
                 exit ( EXIT_SUCCESS );
 
             case 'V':
-                printf ( "Test v\n" );
                 printf ( "%s", COPYRIGHT );
                 exit ( EXIT_SUCCESS );
 
             default:
-                printf ( "Test default\n" );
                 try_msg ( ); /* FIX not working... */
                 exit ( EXIT_FAILURE );
         }
