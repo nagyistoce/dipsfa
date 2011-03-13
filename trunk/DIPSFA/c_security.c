@@ -4,7 +4,7 @@
     Website: http://code.google.com/p/dipsfa
     Written by Juan Gabriel Calderon-Perez
 
-    C_SECURITY.h is a Basic Security Library part of DIPSFA.
+    c_security.c is a C Security Library written for the DIPSFA project.
 
     DIPSFA is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
 #include "c_security.h"
 
 /* -----------------------------------------------------------------
-        Function declarations
+        Dynamic Memory Management
  * ----------------------------------------------------------------- */
 
 void fatal_error ( void )
@@ -48,7 +48,7 @@ void * realloc_s ( void * myptr, size_t size )
 {
     void *ptr = realloc ( myptr, size );
 
-    if ( (ptr == NULL) && (size != 0) ) /* If size == 0, memory is deallocated */
+    if ( ( ptr == NULL ) && ( size != 0 ) )
     {
         fatal_error ( );
     }
@@ -74,6 +74,70 @@ void free_s ( void * ptr )
     }
     else
     {
-        fatal_error ( ); /* Just as a matter of precaution */
+        fatal_error ( ); /* Unallocated pointer */
     }
+}
+
+/* -----------------------------------------------------------------
+        File I/O Management
+ * ----------------------------------------------------------------- */
+
+FILE * fopen_s ( const char * filename, const char * mode )
+{
+    FILE * stream = fopen ( filename, mode );
+
+    if ( stream == NULL )
+    {
+        fatal_error ( );
+    }
+    return stream;
+}
+
+void fclose_s ( FILE * stream )
+{
+    if ( fclose ( stream ) == EOF )
+    {
+        fatal_error ( );
+    }
+}
+
+size_t fread_s ( void * ptr, size_t size, size_t count, FILE * stream )
+{
+    register size_t num = fread ( ptr, size, count, stream );
+
+    if ( (num != count) && (ferror ( stream ) != 0) )
+    {
+        fatal_error ( );
+    }
+    return num;
+}
+
+size_t fwrite_s ( const void * ptr, size_t size, size_t count, FILE * stream )
+{
+    register size_t num = fwrite ( ptr, size, count, stream );
+
+    if ( num != count )
+    {
+        fatal_error ( );
+    }
+    return num;
+}
+
+void fseek_s ( FILE * stream, long int offset, int origin )
+{
+    if ( fseek ( stream, offset, origin ) != 0 )
+    {
+        fatal_error ( );
+    }
+}
+
+long int ftell_s ( FILE * stream )
+{
+    long int position = ftell ( stream );
+
+    if ( position == -1L)
+    {
+        fatal_error ( );
+    }
+    return position;
 }
