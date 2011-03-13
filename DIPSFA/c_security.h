@@ -4,7 +4,7 @@
     Website: http://code.google.com/p/dipsfa
     Written by Juan Gabriel Calderon-Perez
 
-    C_SECURITY.h is a Basic Security Library part of DIPSFA.
+    c_security.h is a C Security Library written for the DIPSFA project.
 
     DIPSFA is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -50,13 +50,23 @@ extern "C" {
 #define FALSE  0
 
     /* -----------------------------------------------------------------
-        Function definitions
+            Dynamic Memory Management
      * ----------------------------------------------------------------- */
     void fatal_error ( void );
     void * malloc_s ( size_t size );
     void * realloc_s ( void * myptr, size_t size );
     void * calloc_s ( size_t num, size_t size );
     void free_s ( void * ptr );
+
+    /* -----------------------------------------------------------------
+            File I/O Management
+     * ----------------------------------------------------------------- */
+    FILE * fopen_s ( const char * filename, const char * mode );
+    void fclose_s ( FILE * stream );
+    size_t fread_s ( void * ptr, size_t size, size_t count, FILE * stream );
+    size_t fwrite_s ( const void * ptr, size_t size, size_t count, FILE * stream );
+    void fseek_s ( FILE * stream, long int offset, int origin );
+    long int ftell_s ( FILE * stream );
 
 #ifdef	__cplusplus
 }
