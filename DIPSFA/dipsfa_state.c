@@ -31,20 +31,20 @@ void initialize_dipsfa ( dipsfa_state * s )
 
 void free_dipsfa ( dipsfa_state * s )
 {
-    free ( s->input_file );
-    free ( s->ptool );
-    free ( s->tool_arguments );
+    free_s ( s->input_file );
+    free_s ( s->ptool );
+    free_s ( s->tool_arguments );
 }
 
 void set_input_file ( dipsfa_state * s, char * filename )
 {
-    s->input_file = malloc ( ( strlen ( filename ) + 1 ) * sizeof (char) );
+    s->input_file = malloc_s ( ( strlen ( filename ) + 1 ) * sizeof (char) );
     strncpy ( s->input_file, filename, strlen ( filename ) + 1 );
 }
 
 void set_processing_tool ( dipsfa_state * s, char * toolname )
 {
-    s->ptool = malloc ( ( strlen ( toolname ) + 1 ) * sizeof (char) );
+    s->ptool = malloc_s ( ( strlen ( toolname ) + 1 ) * sizeof (char) );
     strncpy ( s->ptool, toolname, strlen ( toolname ) + 1 );
 }
 
@@ -53,7 +53,7 @@ void set_tool_arguments ( dipsfa_state * s, char * arguments )
     register uint32_t i;
     register uint32_t argvlen = strlen ( arguments );
 
-    s->tool_arguments = malloc ( ( ( 3 * argvlen ) + 1 ) * sizeof (char) );
+    s->tool_arguments = malloc_s ( ( ( 3 * argvlen ) + 1 ) * sizeof (char) );
 
     for ( i = 0; i < argvlen; i++ )
     {
