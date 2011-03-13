@@ -25,23 +25,22 @@
 void initialize_tool ( p_tool * t )
 {
     t->directory = NULL;
-    t->name = NULL;
     t->input_file = NULL;
     t->output_directory = NULL;
     t->audit_file = NULL;
     t->arguments = NULL;
     t->audit_file = NULL;
+    t->ptool = NONE;
 }
 
 void free_tool ( p_tool * t )
 {
-    free ( t->directory );
-    free ( t->name );
-    free ( t->input_file );
-    free ( t->output_directory );
-    free ( t->audit_file );
-    free ( t->arguments );
-    free ( t->audit_file_name );
+    free_s ( t->directory );
+    free_s ( t->input_file );
+    free_s ( t->output_directory );
+    free_s ( t->audit_file );
+    free_s ( t->arguments );
+    free_s ( t->audit_file_name );
 }
 
 void start_tool ( p_tool * t )

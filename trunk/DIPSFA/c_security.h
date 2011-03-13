@@ -68,7 +68,7 @@ extern "C" {
     void fseek_s ( FILE * stream, long int offset, int origin );
     long int ftell_s ( FILE * stream );
     FILE * popen_s ( const char * command, const char * type );
-    int pclose_s ( FILE * stream );
+    void pclose_s ( FILE * stream );
 
 #ifdef	__cplusplus
 }

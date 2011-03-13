@@ -83,21 +83,37 @@ extern "C" {
     /* -----------------------------------------------------------------
         State and Global Variables
     ----------------------------------------------------------------- */
+    enum mode_t
+    {
+        NONE_MODE = 0,
+        SERVER_MODE = 1<<1,
+        CLIENT_MODE = 1<<2
+    };
+
+    enum ptool_t
+    {
+        NONE = 0,
+        FOREMOST = 1<<1,
+        SCALPEL = 1<<2,
+        ENT = 1<<3
+    };
 
     typedef struct p_tool {
-        char * directory; /*Tool directory*/
-        char * name; /*Tool name*/
-        char * input_file; /*Input file for processing*/
-        char * output_directory; /*Tool output directory*/
-        char * audit_file_name; /*Audit file name*/
-        char * arguments; /*Arguments to run tool*/
-        FILE * audit_file; /*FIle pointer to audit file*/
+        char * directory; /* Tool directory */
+        char * input_file; /* Input file for processing */
+        char * output_directory; /* Tool output directory */
+        char * audit_file_name; /* Audit file name */
+        char * arguments; /* Arguments to run tool */
+        enum ptool_t ptool; /* Selected Tool */
+        FILE * audit_file; /* File pointer to audit file */
     } p_tool;
 
     typedef struct dipsfa_state {
         char * input_file;
-        char * ptool;
         char * tool_arguments;
+        struct p_tool mytool;
+        enum mode_t mode;
+        enum ptool_t ptool;
     } dipsfa_state;
 
     /* -----------------------------------------------------------------
@@ -120,9 +136,11 @@ extern "C" {
     /* Server functions */
     void initialize_dipsfa ( dipsfa_state * s );
     void free_dipsfa ( dipsfa_state * s );
+    void set_operation_mode ( dipsfa_state * s, char * filename );
     void set_input_file ( dipsfa_state * s, char * filename );
     void set_processing_tool ( dipsfa_state * s, char * toolname );
     void set_tool_arguments ( dipsfa_state * s, char * arguments );
+    char * get_ptool ( dipsfa_state * s )
 
     /* Database functions */
 

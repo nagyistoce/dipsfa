@@ -146,14 +146,14 @@ FILE * popen_s ( const char * command, const char * type )
 {
     FILE * stream = popen ( command, type );
 
-    if ( (stream == NULL) || (stream == -1) )
+    if ( stream == NULL )
     {
         fatal_error ( );
     }
     return stream;
 }
 
-int pclose_s ( FILE * stream )
+void pclose_s ( FILE * stream )
 {
     if ( pclose ( stream ) == -1 )
     {
