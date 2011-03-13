@@ -105,7 +105,7 @@ size_t fread_s ( void * ptr, size_t size, size_t count, FILE * stream )
 {
     register size_t num = fread ( ptr, size, count, stream );
 
-    if ( (num != count) && (ferror ( stream ) != 0) )
+    if ( ( num != count ) && ( ferror ( stream ) != 0 ) )
     {
         fatal_error ( );
     }
@@ -135,9 +135,28 @@ long int ftell_s ( FILE * stream )
 {
     long int position = ftell ( stream );
 
-    if ( position == -1L)
+    if ( position == -1L )
     {
         fatal_error ( );
     }
     return position;
+}
+
+FILE * popen_s ( const char * command, const char * type )
+{
+    FILE * stream = popen ( command, type );
+
+    if ( (stream == NULL) || (stream == -1) )
+    {
+        fatal_error ( );
+    }
+    return stream;
+}
+
+int pclose_s ( FILE * stream )
+{
+    if ( pclose ( stream ) == -1 )
+    {
+        fatal_error ( );
+    }
 }
