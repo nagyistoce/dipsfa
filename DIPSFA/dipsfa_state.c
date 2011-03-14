@@ -28,6 +28,12 @@ void initialize_dipsfa ( dipsfa_state * s )
     s->tool_arguments = NULL;
     s->mode = NONE_MODE;
     s->ptool = NONE;
+    s->mytool->arguments = NULL;
+    s->mytool->audit_file = NULL;
+    s->mytool->audit_file_name = NULL;
+    s->mytool->directory = NULL;
+    s->mytool->input_file = NULL;
+    s->mytool->ptool = NONE;
 }
 
 void free_dipsfa ( dipsfa_state * s )
@@ -82,22 +88,13 @@ void set_tool_arguments ( dipsfa_state * s, char * arguments )
 
     for ( i = 0; i < argvlen; i++ )
     {
-        if ( i == 0 )
-        {
-            s->tool_arguments[i] = '-';
-            s->tool_arguments[i + 1] = arguments[i];
-            s->tool_arguments[i + 2] = ' ';
-        }
-        else
-        {
-            s->tool_arguments[( 3 * i )] = '-';
-            s->tool_arguments[( 3 * i ) + 1] = arguments[i];
-            s->tool_arguments[( 3 * i ) + 2] = ' ';
-        }
+        s->tool_arguments[( 3 * i )] = '-';
+        s->tool_arguments[( 3 * i ) + 1] = arguments[i];
+        s->tool_arguments[( 3 * i ) + 2] = ' ';
     }
 }
 
-char * get_ptool ( dipsfa_state * s )
+char * get_ptool_name ( dipsfa_state * s )
 {
     char * toolname = malloc_s ( 12 * sizeof (char) );
 
@@ -116,4 +113,24 @@ char * get_ptool ( dipsfa_state * s )
                 strncpy ( toolname, "ent", 3 );
             }
     return toolname;
+}
+
+char * get_input_file ( dipsfa_state * s )
+{
+    return s->input_file;
+}
+
+char * get_tool_arguments ( dipsfa_state * s )
+{
+    return s->tool_arguments;
+}
+
+struct ptool_s get_ptool_s ( dipsfa_state * s )
+{
+    return s->mytool;
+}
+
+enum ptool_e get_ptool_e ( dipsfa_state * s )
+{
+    return s->ptool;
 }
