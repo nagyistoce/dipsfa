@@ -90,7 +90,7 @@ extern "C" {
         CLIENT_MODE = 1<<2
     };
 
-    enum ptool_t
+    enum ptool_e
     {
         NONE = 0,
         FOREMOST = 1<<1,
@@ -98,55 +98,59 @@ extern "C" {
         ENT = 1<<3
     };
 
-    typedef struct p_tool {
+    typedef struct ptool_s {
         char * directory; /* Tool directory */
         char * input_file; /* Input file for processing */
         char * output_directory; /* Tool output directory */
         char * audit_file_name; /* Audit file name */
         char * arguments; /* Arguments to run tool */
-        enum ptool_t ptool; /* Selected Tool */
+        enum ptool_e ptool; /* Selected Tool */
         FILE * audit_file; /* File pointer to audit file */
-    } p_tool;
+    } ptool_s;
 
     typedef struct dipsfa_state {
         char * input_file;
         char * tool_arguments;
-        struct p_tool mytool;
+        struct ptool_s mytool;
         enum mode_t mode;
-        enum ptool_t ptool;
+        enum ptool_e ptool;
     } dipsfa_state;
 
     /* -----------------------------------------------------------------
         Function definitions
      * ----------------------------------------------------------------- */
 
-    /* ToolKit functions */
-    void initialize_tool ( p_tool * t );
-    void start_tool ( p_tool * t );
-    void free_tool ( p_tool * t );
-    void set_tool_input_file ( p_tool * t );
-    void set_tool_name ( p_tool * t );
-    void set_tool_directory ( p_tool * t );
-    FILE * get_tool_audit_file ( p_tool * t );
-    void query_back_results ( p_tool * t );
-    void fetch_results ( p_tool * t );
+    /* Processing Tool functions */
+    void initialize_tool ( ptool_s * t );
+    void start_tool ( ptool_s * t );
+    void free_tool ( ptool_s * t );
+    void set_tool_input_file ( ptool_s * t );
+    void set_tool_name ( ptool_s * t );
+    void set_tool_directory ( ptool_s * t );
+    FILE * get_tool_audit_file ( ptool_s * t );
+    void query_back_results ( ptool_s * t );
+    void fetch_results ( ptool_s * t );
 
-    /* Client functions */
-
-    /* Server functions */
+    /* Engine functions */
     void initialize_dipsfa ( dipsfa_state * s );
     void free_dipsfa ( dipsfa_state * s );
     void set_operation_mode ( dipsfa_state * s, char * filename );
     void set_input_file ( dipsfa_state * s, char * filename );
     void set_processing_tool ( dipsfa_state * s, char * toolname );
     void set_tool_arguments ( dipsfa_state * s, char * arguments );
-    char * get_ptool ( dipsfa_state * s )
+    char * get_ptool_name ( dipsfa_state * s );
+    char * get_input_file ( dipsfa_state * s );
+    char * get_tool_arguments ( dipsfa_state * s );
+    struct ptool_s get_ptool_s ( dipsfa_state * s );
+    enum ptool_e get_ptool_e ( dipsfa_state * s );
+
+    /* Client functions */
+
+    /* Server functions */
 
     /* Database functions */
 
     /* Networks functions */
-
-    /* Engine functions */
 
     /* Extra functions */
 #ifdef __WIN32

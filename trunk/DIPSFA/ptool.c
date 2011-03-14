@@ -22,7 +22,7 @@
 
 #include "main.h"
 
-void initialize_tool ( p_tool * t )
+void initialize_tool ( ptool_s * t )
 {
     t->directory = NULL;
     t->input_file = NULL;
@@ -33,7 +33,7 @@ void initialize_tool ( p_tool * t )
     t->ptool = NONE;
 }
 
-void free_tool ( p_tool * t )
+void free_tool ( ptool_s * t )
 {
     free_s ( t->directory );
     free_s ( t->input_file );
@@ -43,17 +43,8 @@ void free_tool ( p_tool * t )
     free_s ( t->audit_file_name );
 }
 
-void start_tool ( p_tool * t )
+void start_tool ( ptool_s * t )
 {
     /*strcat ./name arguments */
     /*popen command...*/
 }
-
-/*
-void set_tool_input_file ( p_tool * t );
-void set_tool_name ( p_tool * t );
-void set_tool_directory ( p_tool * t );
-void set_tool_arguments ( dipsfa_state * s, char * filename );
-void set_processing_tool ( dipsfa_state * s, char * filename );
-FILE * get_tool_audit_file ( p_tool * t );
- */
