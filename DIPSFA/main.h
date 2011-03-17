@@ -60,6 +60,7 @@ extern "C" {
 #include <sys/types.h>
 #include <signal.h>
 #include <stdarg.h>
+#include <pthread.h>
 #include "c_security.h"  /*Basic Security Library for DIPSFA*/
 
 #define TRUE   1
@@ -83,19 +84,17 @@ extern "C" {
     /* -----------------------------------------------------------------
         State and Global Variables
     ----------------------------------------------------------------- */
-    enum mode_t
-    {
+    enum mode_t {
         NONE_MODE = 0,
-        SERVER_MODE = 1<<1,
-        CLIENT_MODE = 1<<2
+        SERVER_MODE = 1 << 1,
+        CLIENT_MODE = 1 << 2
     };
 
-    enum ptool_e
-    {
+    enum ptool_e {
         NONE = 0,
-        FOREMOST = 1<<1,
-        SCALPEL = 1<<2,
-        ENT = 1<<3
+        FOREMOST = 1 << 1,
+        SCALPEL = 1 << 2,
+        ENT = 1 << 3
     };
 
     typedef struct ptool_s {
@@ -124,9 +123,10 @@ extern "C" {
     void initialize_tool ( ptool_s * t );
     void start_tool ( ptool_s * t );
     void free_tool ( ptool_s * t );
-    void set_tool_input_file ( ptool_s * t );
-    void set_tool_name ( ptool_s * t );
-    void set_tool_directory ( ptool_s * t );
+    void set_tool_input_file ( ptool_s * t, char * filename );
+    void set_tool_name ( ptool_s * t, char * toolname );
+    void set_tool_directory ( ptool_s * t, char * dirname );
+    void set_tool_output_directory ( ptool_s * t, char * dirname );
     FILE * get_tool_audit_file ( ptool_s * t );
     void query_back_results ( ptool_s * t );
     void fetch_results ( ptool_s * t );
