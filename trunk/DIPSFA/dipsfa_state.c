@@ -50,9 +50,9 @@ void set_operation_mode ( dipsfa_state * s, char * mode )
     }
     else
         if ( strcmp ( "client", mode ) == 0 )
-        {
-            s->mode = CLIENT_MODE;
-        }
+    {
+        s->mode = CLIENT_MODE;
+    }
 }
 
 void set_input_file ( dipsfa_state * s, char * filename )
@@ -69,14 +69,14 @@ void set_processing_tool ( dipsfa_state * s, char * toolname )
     }
     else
         if ( strcmp ( "scalpel", toolname ) == 0 )
-        {
-            s->ptool = SCALPEL;
-        }
-        else
-            if ( strcmp ( "ent", toolname ) == 0 )
-            {
-                s->ptool = ENT;
-            }
+    {
+        s->ptool = SCALPEL;
+    }
+    else
+        if ( strcmp ( "ent", toolname ) == 0 )
+    {
+        s->ptool = ENT;
+    }
 }
 
 void set_tool_arguments ( dipsfa_state * s, char * arguments )
@@ -104,14 +104,14 @@ char * get_ptool_name ( dipsfa_state * s )
     }
     else
         if ( s->ptool == SCALPEL )
-        {
-            strncpy ( toolname, "scalpel", 7 );
-        }
-        else
-            if ( s->ptool == ENT )
-            {
-                strncpy ( toolname, "ent", 3 );
-            }
+    {
+        strncpy ( toolname, "scalpel", 7 );
+    }
+    else
+        if ( s->ptool == ENT )
+    {
+        strncpy ( toolname, "ent", 3 );
+    }
     return toolname;
 }
 
