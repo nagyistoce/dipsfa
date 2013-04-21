@@ -72,10 +72,6 @@ void free_s ( void * ptr )
     {
         free ( ptr );
     }
-    else
-    {
-        fatal_error ( ); /* Unallocated pointer */
-    }
 }
 
 /* -----------------------------------------------------------------
